@@ -5,4 +5,4 @@ nixPkgs = ["python312"]
 cmds = ["pip install flask"]
 
 [start]
-cmd = "python main.py"
+cmd = "python server.py"
