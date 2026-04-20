@@ -5,7 +5,6 @@ import os
 
 app = Flask(__name__)
 
-# ====================== ТВОИ ПОЛЬЗОВАТЕЛИ ======================
 users = {
     "admin": {
         "password": hashlib.sha256("az1x@d0s".encode()).hexdigest(),
@@ -25,7 +24,7 @@ users = {
 def get_users():
     today = str(date.today())
     for u in users:
-        if users[u]["last_date"] != today:
+        if users[u].get("last_date") != today:
             users[u]["attacks_today"] = 0
             users[u]["last_date"] = today
     return jsonify(users)
@@ -34,15 +33,14 @@ def get_users():
 def update_users():
     global users
     try:
-        new_data = request.get_json()
-        if new_data:
-            users = new_data
+        data = request.get_json()
+        if data:
+            users = data
             return jsonify({"status": "ok"})
         return jsonify({"status": "error"}), 400
     except:
         return jsonify({"status": "error"}), 500
 
-# ====================== ЗАПУСК ======================
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 8080))   # ← ЭТО САМОЕ ГЛАВНОЕ ИСПРАВЛЕНИЕ
-    app.run(host='0.0.0.0', port=port)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)
