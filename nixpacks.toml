@@ -1,8 +1,8 @@
 [phases.setup]
-nixPkgs = ["python312", "python312Packages.pip"]
+nixPkgs = ["python312"]
 
 [phases.build]
-cmds = ["pip install --no-cache-dir flask"]
+cmds = ["pip install flask"]
 
 [start]
 cmd = "python server.py"
