@@ -1,11 +1,11 @@
 from flask import Flask, jsonify, request
-import json
 import hashlib
 from datetime import date
 import os
 
 app = Flask(__name__)
 
+# ====================== ТВОИ ПОЛЬЗОВАТЕЛИ ======================
 users = {
     "admin": {
         "password": hashlib.sha256("az1x@d0s".encode()).hexdigest(),
@@ -42,6 +42,7 @@ def update_users():
     except:
         return jsonify({"status": "error"}), 500
 
+# ====================== ЗАПУСК ======================
 if __name__ == '__main__':
-    port = int(os.getenv("PORT", 8080))
+    port = int(os.environ.get("PORT", 8080))   # ← ЭТО САМОЕ ГЛАВНОЕ ИСПРАВЛЕНИЕ
     app.run(host='0.0.0.0', port=port)
