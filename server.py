@@ -20,6 +20,10 @@ users = {
     }
 }
 
+@app.route('/')
+def home():
+    return "Ultimate DoS Server is running! Use /api/users"
+
 @app.route('/api/users', methods=['GET'])
 def get_users():
     today = str(date.today())
@@ -41,8 +45,7 @@ def update_users():
     except:
         return jsonify({"status": "error"}), 500
 
-# ====================== ЗАПУСК ======================
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
-    print(f"Starting Flask on port {port}")
+    print(f"[+] Flask server started on port {port}")
     app.run(host="0.0.0.0", port=port)
